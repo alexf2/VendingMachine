@@ -1,0 +1,15 @@
+﻿@{
+    Layout = string.Empty;
+}
+<div class="container-fluid id-msg-log">
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <h3 class="panel-title" style='display:inline-block;'>Action Log</h3>&nbsp;<button type="button" class="btn btn-sm btn-link" data-bind="click: clearLog()">Clear</button>
+        </div>
+
+        <div class="panel-body" style="max-height: 350px; overflow-y: auto; background-color: #EFFAEF" data-bind="foreach: logMessages">
+            <div data-bind="text: $data"></div>
+        </div>
+    </div>
+</div>

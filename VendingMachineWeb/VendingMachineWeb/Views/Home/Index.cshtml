@@ -1,0 +1,65 @@
+﻿@using System.Web.Optimization
+@{
+    ViewBag.Title = "Vending Machine";
+}
+@section Scripts {    
+    
+    @Scripts.Render("~/bundles/vm-simulator-scripts")
+}
+<div class="jumbotron">
+    <p class="lead">Basic Vending Machine simulator for UseTech</p>
+    <p><a href="http://usetech.ru/" class="btn btn-primary">UseTech &raquo;</a></p>
+</div>
+
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="container-fluid wallet id-user-wallet"></div>
+    </div>
+
+    <div class="col-md-6 reset-padding" >
+        <div class="container-fluid vmachine id-machine">
+            <div class="panel panel-primary">
+
+                <div class="panel-heading"><h3 class="panel-title id-machine-title">Vending Machine</h3></div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <div class="panel panel-default">
+                                <div class="panel-heading nested-heading"><h5 class="panel-title">Status</h5></div>
+                                <div class="panel-body" data-bind="text: status">Ready</div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3 deposit-box" >
+                            <div class="panel panel-default">
+                                <div class="panel-heading nested-heading"><h5 class="panel-title">Deposit</h5></div>
+                                <div class="panel-body text-center money-indicator"><b data-bind='text: operationBalance()'>0</b><button type="button" class="btn btn-success refund-btn" data-bind="disable: operationBalance() == 0, click: refundClick">Refund</button></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default id-goods"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="container-fluid wallet id-machine-wallet"></div>
+    </div>
+        
+</div>
+
+<div>@Html.Partial("ActionLog")</div>
+
+@section JavaScript {
+    <script type="text/javascript">
+        new window.jQuery.VmSimulator.SimulatorApp('@Url.HttpRouteUrl("SimulatorRoute", null)', '@Href("~/Content/templates/")').run();
+    </script>
+}

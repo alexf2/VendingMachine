@@ -1,0 +1,24 @@
+﻿<div class="panel panel-primary">
+
+    <div class="panel-heading"><h3 class="panel-title" data-bind="text: name"></h3></div>
+    
+    <!-- ko template: items().length == 0 ? 'emptyW':'fullW' --><!-- /ko -->
+    <script id="emptyW" type="text/html">
+        <div class="list-group">&nbsp;</div>
+    </script>
+    
+    <script id="fullW" type="text/html">
+        <div class="list-group" data-bind="foreach: items()">
+            <a href="#" class="list-group-item" data-bind="css: {'list-group-item': true, 'disabled-list-group-item': amount() == 0 || $root.readonly}, attr: {'data-nominal': nominal}">
+                <div>
+                    <div class="coin">
+                        <span class="coin-text" data-bind="text: nominal"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="badge" data-bind="text: amount()"></div>
+                </div>
+            </a>
+        </div>
+    </script>    
+</div>

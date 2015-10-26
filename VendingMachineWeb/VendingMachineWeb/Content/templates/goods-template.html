@@ -1,0 +1,15 @@
+﻿<div class="container-fluid reset-padding goods-box">
+    <ul class="list-unstyled" data-bind="foreach: goods.items, visible: goods.items && goods.items.length > 0">
+
+        <li class="col-xs-6" >
+            <div class="container-fluid vm-button">
+                <div class="row">
+                    <div data-bind="click: $parent.itemClick,  css: {'col-sm-7': true, btn:true, 'btn-success':true, 'disabled': countInPieces() == 0}">
+                        <div class=" merchandise" data-bind="text: name">&nbsp;</div><div class="price" data-bind="text: price + 'R'">&nbsp;</div>
+                    </div><div class="col-md-1 remain" data-bind="text: countInPieces() + 'pcs'">&nbsp;</div>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+</div>
