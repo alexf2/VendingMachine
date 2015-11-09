@@ -129,7 +129,7 @@
             getVM$.call(this).data('vending_machine').cashIn(moneyItem);
             writeLog.call(this, 'Deposit ' + nominal);
         } else 
-            writeLog.call(this, 'Can not withdrow ' + wres.nominal + ': uderflow ' + wres.amountDiff);        
+            writeLog.call(this, 'Can not withdrow ' + wres.nominal + ': uderflow ' + wres.amountDiff);
 
         return false;
     }
@@ -155,7 +155,9 @@
         return false;
     }
     function refund(ev, moneyItems) {
-        this.customerWallet.deposit(moneyItems);
+        this.customerWallet.deposit(moneyItems.items);
+        
+        writeLog.call(this, 'Money refunded: ' + this.customerWallet.getBalance(moneyItems.items) + ' R');
 
         return false;
     }

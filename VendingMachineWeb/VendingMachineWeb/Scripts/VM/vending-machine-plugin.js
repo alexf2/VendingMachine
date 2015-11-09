@@ -138,7 +138,7 @@
         this.$element.trigger('purchase-result', { result: res, merch: merchendise });
     }
     function refundCash() {        
-        this.$element.trigger('money-refund', this.model.operationWallet.withdrawAll());
+        this.$element.trigger('money-refund', { items: this.model.operationWallet.withdrawAll() });
         this.model.status(STAT_READY);
     }
 

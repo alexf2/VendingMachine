@@ -110,9 +110,7 @@
          * Withdraws all the money.
          * @returns {moneyItem[]} withdrawn money array.
          */
-        withdrawAll: function () {
-            /*var tmp = this.items.slice(0);
-            this.items.splice(0, this.items.length);*/
+        withdrawAll: function () {            
             var tmp = this.items();
             this.items([]);
             return tmp;
@@ -128,7 +126,7 @@
             var totalAmount = 0;
             var moneyItem = items || this.items();
 
-            if ($.isArray(moneyItem))
+            if ($.isArray(moneyItem))                 
                 $.each(moneyItem, function (idx, val) {
                     totalAmount += val.nominal * ko.utils.unwrapObservable(val.amount);
                 });
