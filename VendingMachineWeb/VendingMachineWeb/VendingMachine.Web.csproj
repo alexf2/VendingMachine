@@ -20,6 +20,9 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -147,12 +150,17 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\normalize.css" />
+    <Content Include="Content\Site.css">
+      <DependentUpon>Site.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="Content\templates\goods-template.html" />
     <Content Include="Content\templates\wallet-template.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -162,6 +170,12 @@
     <Content Include="images\indicator_small.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="bundleconfig.json" />
+    <None Include="compilerconfig.json" />
+    <Content Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.less" />
     <None Include="Properties\PublishProfiles\Main.pubxml" />
     <None Include="Properties\PublishProfiles\VM.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
@@ -170,10 +184,25 @@
     <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\VM\goods-store.js" />
+    <Content Include="Scripts\VM\goods-store.min.js">
+      <DependentUpon>goods-store.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\VM\simulator-app.js" />
+    <Content Include="Scripts\VM\simulator-app.min.js">
+      <DependentUpon>simulator-app.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\VM\vending-machine-plugin.js" />
+    <Content Include="Scripts\VM\vending-machine-plugin.min.js">
+      <DependentUpon>vending-machine-plugin.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\VM\wallet-plugin.js" />
+    <Content Include="Scripts\VM\wallet-plugin.min.js">
+      <DependentUpon>wallet-plugin.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\VM\wallet.js" />
+    <Content Include="Scripts\VM\wallet.min.js">
+      <DependentUpon>wallet.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -188,6 +217,21 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\ActionLog.cshtml" />
+    <Content Include="Scripts\VM\goods-store.min.js.map">
+      <DependentUpon>goods-store.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\VM\simulator-app.min.js.map">
+      <DependentUpon>simulator-app.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\VM\vending-machine-plugin.min.js.map">
+      <DependentUpon>vending-machine-plugin.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\VM\wallet-plugin.min.js.map">
+      <DependentUpon>wallet-plugin.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\VM\wallet.min.js.map">
+      <DependentUpon>wallet.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -238,6 +282,15 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\BuildBundlerMinifier.1.5.134\build\BuildBundlerMinifier.targets" Condition="Exists('..\packages\BuildBundlerMinifier.1.5.134\build\BuildBundlerMinifier.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\BuildBundlerMinifier.1.5.134\build\BuildBundlerMinifier.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\BuildBundlerMinifier.1.5.134\build\BuildBundlerMinifier.targets'))" />
+    <Error Condition="!Exists('..\packages\BuildWebCompiler.1.8.270\build\BuildWebCompiler.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\BuildWebCompiler.1.8.270\build\BuildWebCompiler.targets'))" />
+  </Target>
+  <Import Project="..\packages\BuildWebCompiler.1.8.270\build\BuildWebCompiler.targets" Condition="Exists('..\packages\BuildWebCompiler.1.8.270\build\BuildWebCompiler.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

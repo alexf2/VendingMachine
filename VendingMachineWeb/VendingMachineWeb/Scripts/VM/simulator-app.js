@@ -16,6 +16,7 @@
 
     /**
      * Creates a Vending Machine simulation application.
+     * @constructor
      * @param {string} modelUrl Rest service URL to request the simulator model as JSON.
      * @param {string} templatesBaseUrl Base URL for HTML templates, used in the model.
     */

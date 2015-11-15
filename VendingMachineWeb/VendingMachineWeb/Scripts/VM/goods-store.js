@@ -6,11 +6,12 @@
 
     /**
      *  Initializes new instance of GoodsStorage.
+     *  @constructor
      *  @param {goodItem} goodItems The items in store, which are available for selling.
      *  @wallet {Wallet} wallet Wallet for recieving money and giving change.
      */
     var thisClass = NS.GoodsStore = function (goodItems, wallet) {
-
+         
         var items = goodItems || [];
         
         this.items = ko.utils.arrayMap(items, function(it) {

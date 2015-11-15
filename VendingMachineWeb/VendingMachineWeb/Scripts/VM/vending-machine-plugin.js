@@ -20,6 +20,12 @@
         return name + myScope();
     }
 
+    /**
+     * Creates the plugin, representing a Vending Machine.
+     * @constructor
+     * @param {DomNode} the DOM element to attach plugin to.
+     * @param {object} options object.
+    */
     var VendingMachine = function (element, options) {
         this.$element = $(element);
         this.options = options;        
@@ -55,7 +61,7 @@
             goods: opt.goods,
 
             operationWallet: opWallet,
-            operationBalance: ko.pureComputed(function () { return opWallet.getBalance(); }),
+            operationBalance: ko.pureComputed(function () { return opWallet.getBalance(); }), //is readonly property, so, use 'pure'
             status: ko.observable(STAT_READY),
             
             itemClick: function(merchandise) {

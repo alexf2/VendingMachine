@@ -1,0 +1,146 @@
+﻿@border_radius: 20px;
+@coin_border_color: #888888;
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal {
+    dt {
+        white-space: normal;
+    }
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input, select, textarea {
+    max-width: 280px;
+}
+
+.wallet {
+    width: 70%;
+}
+
+.vmachine {
+    padding: 0;
+    width: 100%;
+}
+
+.nested-heading {
+    padding: 5px 7px;
+}
+
+.money-indicator {
+    font-size: 200%;
+}
+
+.coin {
+    width: 40px;
+    height: 40px;
+    background: #FFD700;
+
+    -moz-border-radius: @border_radius;
+    -webkit-border-radius: @border_radius;
+    border-radius: @border_radius;
+
+    border: 3px solid #DAA520;
+    display: table;
+    text-align: center;
+}
+
+.disabled-list-group-item {
+    pointer-events: none;
+    cursor: default;
+
+    .coin {
+        background: #AAAA88;
+        border-color: @coin_border_color;
+    }
+
+    .coin-text {
+        color: @coin_border_color;
+    }
+}
+
+.coin-text {
+    font-weight: bold;
+    font-size: 20px;
+    color: #B8860B;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+a.list-group-item {
+    overflow: hidden;
+    display: table;
+    width: 100%;
+
+    & > div {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    & > div:last-child {
+        text-align: right;
+    }
+}
+
+.vm-button {
+    margin: 5px;
+    width: 250px;
+}
+
+.merchandise {
+    font-weight: bold;
+    float: left;
+}
+
+.price {
+    float: right;
+}
+
+.reset-padding {
+    padding: 0;
+}
+
+.deposit-box {
+    min-width: 160px;
+}
+
+.refund-btn {
+    float: right;
+}
+
+.goods-box {
+    width: 500px;
+}
+
+/* Progress */
+.list-ajax-loader {
+    cursor: wait;
+    background: #ffffff url('../images/indicator_small.gif') no-repeat center center;
+
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    filter: alpha(opacity=75);
+    opacity: 0.75;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+}
+
+.err-msg {
+    color: red;
+}

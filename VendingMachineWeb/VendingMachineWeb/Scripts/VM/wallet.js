@@ -7,6 +7,7 @@
 
     /**
      * Creates a wallet instance.
+     * @constructor
      * @param {string | number} id Wallet unique id.
      * @param {string} name Wallet descriptive name.
      * @param {moneyItem[]} moneyItems An array of {nominal, amount}.

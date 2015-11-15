@@ -1,0 +1,8 @@
+﻿[
+  {
+    "includeInProject": true,
+    "inputFile": "Content/Site.less",
+    "outputFile": "Content/Site.css",
+    "sourceMap": true
+  }
+]

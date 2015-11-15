@@ -1,139 +1,116 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
 .dl-horizontal dt {
-    white-space: normal;
+  white-space: normal;
 }
-
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+  max-width: 280px;
 }
-
 .wallet {
-    width: 70%;
+  width: 70%;
 }
-
 .vmachine {
-    padding:0;
-    width: 100%;
+  padding: 0;
+  width: 100%;
 }
-
 .nested-heading {
-    padding: 5px 7px;
+  padding: 5px 7px;
 }
-
 .money-indicator {
-    font-size: 200%;
+  font-size: 200%;
 }
-
 .coin {
-     width: 40px; height: 40px; 
-     background: #FFD700; 
-     -moz-border-radius: 20px; 
-     -webkit-border-radius: 20px; 
-     border-radius: 20px;
-    
-     border-color: #DAA520;
-     border-width: 3px;
-     border-style : solid;        
-
-    display: table;    
-    text-align: center;    
+  width: 40px;
+  height: 40px;
+  background: #FFD700;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  border: 3px solid #DAA520;
+  display: table;
+  text-align: center;
 }
-
 .disabled-list-group-item {
-    pointer-events: none;
-    cursor: default;    
+  pointer-events: none;
+  cursor: default;
 }
 .disabled-list-group-item .coin {
-    background: #AAAA88; 
-    border-color: #888888;
+  background: #AAAA88;
+  border-color: #888888;
 }
 .disabled-list-group-item .coin-text {
-    color: #888888;
+  color: #888888;
 }
-
 .coin-text {
-    font-weight: bold;
-    font-size: 20px;
-    color: #B8860B;    
-
-    display: table-cell;
-    vertical-align: middle;
+  font-weight: bold;
+  font-size: 20px;
+  color: #B8860B;
+  display: table-cell;
+  vertical-align: middle;
 }
-
 a.list-group-item {
   overflow: hidden;
   display: table;
   width: 100%;
 }
-
 a.list-group-item > div {
-    display: table-cell;
-    vertical-align: middle;    
+  display: table-cell;
+  vertical-align: middle;
 }
 a.list-group-item > div:last-child {
-    text-align: right;
+  text-align: right;
 }
-
 .vm-button {
-    margin: 5px;
-    width: 250px;
+  margin: 5px;
+  width: 250px;
 }
-
 .merchandise {
-    
-    font-weight: bold;        
-    float: left;
+  font-weight: bold;
+  float: left;
 }
 .price {
-    float: right;    
+  float: right;
 }
-.remain {        
-}
-
 .reset-padding {
-    padding: 0;
+  padding: 0;
 }
-
 .deposit-box {
-    min-width: 160px;
+  min-width: 160px;
 }
-
 .refund-btn {
-    float: right;
+  float: right;
 }
-
 .goods-box {
-    width: 500px;
+  width: 500px;
 }
-
 /* Progress */
 .list-ajax-loader {
-    cursor: wait;
-    background:#ffffff url('../images/indicator_small.gif') no-repeat center center;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
-    filter: alpha(opacity=75);
-    opacity: 0.75;
-    position: absolute;
-    top: 0;left: 0;right: 0;bottom: 0;    
-    z-index: 10000;    
+  cursor: wait;
+  background: #ffffff url('../images/indicator_small.gif') no-repeat center center;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+  filter: alpha(opacity=75);
+  opacity: 0.75;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
 }
-
 .err-msg {
-    color: red;
+  color: red;
 }
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIlNpdGUubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHQTtFQUNJLGlCQUFBO0VBQ0Esb0JBQUE7OztBQUlKO0VBQ0ksa0JBQUE7RUFDQSxtQkFBQTs7Ozs7QUFNSixjQUNJO0VBQ0ksbUJBQUE7OztBQUtSO0FBQU87QUFBUTtFQUNYLGdCQUFBOztBQUdKO0VBQ0ksVUFBQTs7QUFHSjtFQUNJLFVBQUE7RUFDQSxXQUFBOztBQUdKO0VBQ0ksZ0JBQUE7O0FBR0o7RUFDSSxlQUFBOztBQUdKO0VBQ0ksV0FBQTtFQUNBLFlBQUE7RUFDQSxtQkFBQTtFQUVBLHdCQUFBO0VBQ0EsMkJBQUE7RUFDQSxtQkFBQTtFQUVBLHlCQUFBO0VBQ0EsY0FBQTtFQUNBLGtCQUFBOztBQUdKO0VBQ0ksb0JBQUE7RUFDQSxlQUFBOztBQUZKLHlCQUlJO0VBQ0ksbUJBQUE7RUFDQSxxQkFBQTs7QUFOUix5QkFTSTtFQUNJLGNBQUE7O0FBSVI7RUFDSSxpQkFBQTtFQUNBLGVBQUE7RUFDQSxjQUFBO0VBQ0EsbUJBQUE7RUFDQSxzQkFBQTs7QUFHSixDQUFDO0VBQ0csZ0JBQUE7RUFDQSxjQUFBO0VBQ0EsV0FBQTs7QUFFQSxDQUxILGdCQUtLO0VBQ0UsbUJBQUE7RUFDQSxzQkFBQTs7QUFHSixDQVZILGdCQVVLLE1BQUs7RUFDSCxpQkFBQTs7QUFJUjtFQUNJLFdBQUE7RUFDQSxZQUFBOztBQUdKO0VBQ0ksaUJBQUE7RUFDQSxXQUFBOztBQUdKO0VBQ0ksWUFBQTs7QUFHSjtFQUNJLFVBQUE7O0FBR0o7RUFDSSxnQkFBQTs7QUFHSjtFQUNJLFlBQUE7O0FBR0o7RUFDSSxZQUFBOzs7QUFJSjtFQUNJLFlBQUE7RUFDQSx3QkFBd0Isd0RBQXhCO0VBRUEsWUFBWSxxREFBWjtFQUNBLHlCQUFBO0VBQ0EsYUFBQTtFQUVBLGtCQUFBO0VBQ0EsTUFBQTtFQUNBLE9BQUE7RUFDQSxRQUFBO0VBQ0EsU0FBQTtFQUNBLGNBQUE7O0FBR0o7RUFDSSxVQUFBIiwiZmlsZSI6InVuZGVmaW5lZCJ9 */

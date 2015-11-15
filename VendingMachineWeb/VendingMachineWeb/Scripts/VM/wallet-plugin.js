@@ -15,6 +15,12 @@
         return name + myScope();
     }
 
+    /**
+     * Creates the plugin, representing a Wallet.
+     * @constructor
+     * @param {DomNode} the DOM element to attach plugin to.
+     * @param {object} options object.
+    */
     var WalletP = function (element, options) {
         this.$element = $(element);
         this.options = options;

@@ -1,0 +1,37 @@
+[
+  {
+    "outputFileName": "Scripts/VM/goods-store.js",
+    "inputFiles": [
+      "Scripts/VM/goods-store.js"
+    ],
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "Scripts/VM/simulator-app.js",
+    "inputFiles": [
+      "Scripts/VM/simulator-app.js"
+    ],
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "Scripts/VM/vending-machine-plugin.js",
+    "inputFiles": [
+      "Scripts/VM/vending-machine-plugin.js"
+    ],
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "Scripts/VM/wallet-plugin.js",
+    "inputFiles": [
+      "Scripts/VM/wallet-plugin.js"
+    ],
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "Scripts/VM/wallet.js",
+    "inputFiles": [
+      "Scripts/VM/wallet.js"
+    ],
+    "sourceMap": true
+  }
+]
