@@ -1,6 +1,12 @@
 ﻿@border_radius: 20px;
 @coin_border_color: #888888;
 
+.round-corners(@radius) {
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+    border-radius: @radius;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -48,9 +54,7 @@ input, select, textarea {
     height: 40px;
     background: #FFD700;
 
-    -moz-border-radius: @border_radius;
-    -webkit-border-radius: @border_radius;
-    border-radius: @border_radius;
+    .round-corners(@border_radius);    
 
     border: 3px solid #DAA520;
     display: table;
