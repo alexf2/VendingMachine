@@ -1,16 +1,13 @@
-﻿!(function ($) {
+﻿define("wallet-plugin", ["jquery", "wallet", "knockoutjs"], function ($, wallet, ko) {
     'use strict';
-    
+
     var JS_PLUGIN_NAME = 'WalletP';
-    var PLUGIN_NAME = 'walletp';
-
-    var NameSpace = 'VmSimulator',
-        NS = $[NameSpace] || ($[NameSpace] = {});
-
+    var PLUGIN_NAME = 'wallet_p';    
 
     function myScope() {
         return '.' + JS_PLUGIN_NAME;
     }
+
     function scopedName(name) {
         return name + myScope();
     }
@@ -21,7 +18,7 @@
      * @param {DomNode} the DOM element to attach plugin to.
      * @param {object} options object.
     */
-    var WalletP = function (element, options) {
+    var WalletP = function(element, options) {
         this.$element = $(element);
         this.options = options;
         this.model = createModel.call(this, options);
@@ -35,10 +32,11 @@
 
         pluginName: PLUGIN_NAME,
 
-        getId: function () { return this.$element.attr('id'); },
+        getId: function() { return this.$element.attr('id'); },
 
-        destroy: function () { teardown.call(this); }
+        destroy: function() { teardown.call(this); }
     };
+
     /* --- END Prototype --- */
 
     /* --- Private --- */
@@ -46,11 +44,11 @@
         return {
             wallet: opt.wallet
         };
-    }    
+    }
 
     function init() {
         var that = this;
-        
+
         function start(xhr) { showLoader.call(that, true); }
 
         function complete(dataXHR, textStatus, jqXHR) { showLoader.call(that, false); }
@@ -63,7 +61,7 @@
 
         function failure(jqXHR, textStatus, errorThrown) {
             that.$element.text('Can not load template - ' + textStatus + ': \'' + errorThrown + '\'');
-        }        
+        }
 
         var xhrRequest = {
             url: buildTemplateUrl.call(this),
@@ -78,7 +76,7 @@
             fail(failure);
     }
 
-    function bindEvents() {        
+    function bindEvents() {
         this.$element.find('.list-group').on(scopedName('click'), '.list-group-item', null, $.proxy(moneyItemClick, this));
     }
 
@@ -93,7 +91,7 @@
         return this.options.template;
     }
 
-    function showLoader (show) {
+    function showLoader(show) {
 
         if (show) {
             if (this.$element.has('.list-ajax-loader').length == 0)
@@ -104,10 +102,11 @@
 
     /* --- Event handlers --- */
     function moneyItemClick(ev) {
-        var nominal = parseFloat($(ev.target).closest('a.list-group-item').data('nominal'));        
+        var nominal = parseFloat($(ev.target).closest('a.list-group-item').data('nominal'));
         if (this.model.wallet.readonly == false)
             this.$element.trigger('money-item-clicked', nominal);
     }
+
     /* --- END Event handlers --- */
 
     function teardown() {
@@ -116,16 +115,17 @@
         unbindEvents.call(this);
         this.$element = null;
     }
+
     /* --- END Private --- */
 
     /* --- JQuery plugin registration API --- */
-    $.fn[PLUGIN_NAME] = function (options) {
+    $.fn[PLUGIN_NAME] = function(options) {
 
         var args = $.makeArray(arguments),
             extraParams = args.slice(1);
 
 
-        return this.each(function () {
+        return this.each(function() {
             var instance = $.data(this, PLUGIN_NAME);
 
             if (instance) {
@@ -151,11 +151,9 @@
 
     $.fn[PLUGIN_NAME].Constructor = WalletP;
 
-    $.fn[PLUGIN_NAME].defaults = {        
-        wallet: new NS.Wallet("def-1", "default", []),
+    $.fn[PLUGIN_NAME].defaults = {
+        wallet: new wallet("def-1", "default", []),
         template: 'wallet-template.html'
     };
     /* --- END JQuery plugin registration API --- */
-
-
-})(window.jQuery);
+});

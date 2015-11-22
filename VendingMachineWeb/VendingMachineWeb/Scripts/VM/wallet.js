@@ -1,9 +1,5 @@
-﻿(function($) {
-    "use strict";
-
-    var NameSpace = 'VmSimulator',
-        NS = $[NameSpace] || ($[NameSpace] = {});
-
+﻿define("wallet", ["jquery", "knockoutjs"], function ($, ko) {
+    "use strict";    
 
     /**
      * Creates a wallet instance.
@@ -12,14 +8,14 @@
      * @param {string} name Wallet descriptive name.
      * @param {moneyItem[]} moneyItems An array of {nominal, amount}.
     */
-    var thisClass = NS.Wallet = function (id, name, moneyItems, readonly) {
+    var thisClass = function(id, name, moneyItems, readonly) {
         this.id = id;
         this.name = name;
         this.readonly = readonly || false;
 
-        var items = moneyItems || [];        
+        var items = moneyItems || [];
 
-        this.items = ko.utils.arrayMap(items, function (it) {
+        this.items = ko.utils.arrayMap(items, function(it) {
             if (it.nominal !== it.nominal >> 0)
                 throw new Error('Wallet does not support fractional money units');
 
@@ -27,14 +23,14 @@
             res.amount = ko.observable(res.amount);
             return res;
         });
-        
+
         //sorting desc
         this.items.sort(function(a, b) {
             return b.nominal - a.nominal;
         });
 
         this.items = ko.observableArray(this.items);
-    };    
+    };
 
     thisClass.prototype = {
 
@@ -43,44 +39,44 @@
          * @param {moneyItem[] | moneyItem} moneyItems Money to add to the wallet.
          * @returns {number} added total amount.
         */
-        deposit: function (moneyItem) {
+        deposit: function(moneyItem) {
             if (!moneyItem)
                 throw new Error('Money to deposit are not specified');
 
             var that = this;
-            
+
             if ($.isArray(moneyItem))
-                $.each(moneyItem, function (idx, val) {
+                $.each(moneyItem, function(idx, val) {
                     depositOne.call(that, val);
                 });
             else
                 depositOne.call(this, moneyItem);
-        },        
+        },
 
         /**
          * Withdraws money, listed in pairs {nominal, amount}.
          * @param {moneyItem[] | moneyItem} moneyItems Money to withdraw off the wallet.
          * @returns {number | UnderflowInfo} withdrawn total amount or UnderflowInfo , if current balance is not enough or availbale units do not allow to gather requested amount.
         */
-        withdraw: function (moneyItem) {
+        withdraw: function(moneyItem) {
             if (!moneyItem)
                 throw new Error('Money to withdraw are not specified');
 
             var vres = validateWithdrawl.call(this, moneyItem);
             if (vres !== true)
-                return vres;            
+                return vres;
 
             withdrawInternal.call(this, moneyItem);
 
             return true;
-        },        
+        },
 
         /**
          * Withdraws a specified amount of money if current balance is enough and money units allow to gather required amount.
          * @param {number} amount The number to withdraw. The number should be integer: fractions are not supported.
          * @returns {moneyItem[] | number} withdrawn money array or a negative number, representing underflow.
          */
-        adjustedWithdraw: function (amount) {
+        adjustedWithdraw: function(amount) {
             if (!amount)
                 throw new Error('Amount to withdraw is not specified');
 
@@ -111,7 +107,7 @@
          * Withdraws all the money.
          * @returns {moneyItem[]} withdrawn money array.
          */
-        withdrawAll: function () {            
+        withdrawAll: function() {
             var tmp = this.items();
             this.items([]);
             return tmp;
@@ -122,13 +118,13 @@
          * @param {moneyItem[] | moneyItem} items Money to summarize.
          * @returns {number} summ of products unit * amount.
         */
-        getBalance: function (items) {            
+        getBalance: function(items) {
 
             var totalAmount = 0;
             var moneyItem = items || this.items();
 
-            if ($.isArray(moneyItem))                 
-                $.each(moneyItem, function (idx, val) {
+            if ($.isArray(moneyItem))
+                $.each(moneyItem, function(idx, val) {
                     totalAmount += val.nominal * ko.utils.unwrapObservable(val.amount);
                 });
             else
@@ -136,14 +132,14 @@
 
             return totalAmount;
         },
-        
+
         /**
          * Returns wallet content.
          * @returns {moneyItem[]}.
          */
-        getDetails: function () {            
+        getDetails: function() {
             return this.items();
-        },        
+        },
 
         /**
          * Returns true if the wallet is empty.
@@ -157,25 +153,24 @@
             var idx = binarySearchMoneyItem(this.items(), nominal);
             return idx >= 0 ? this.items()[idx] : null;
         }
-       
-    };//End prototype
+
+    }; //End prototype
 
     /* --- Privates --- */
     function depositOne(moneyItem) {
-        
+
         var idx = binarySearchMoneyItem(this.items(), moneyItem.nominal);
         if (idx < 0) {
             idx = ~idx;
             this.items.splice(idx, 0, { nominal: moneyItem.nominal, amount: ko.observable(moneyItem.amount) });
-        }
-        else
+        } else
             this.items()[idx].amount(this.items()[idx].amount() + ko.utils.unwrapObservable(moneyItem.amount));
     }
 
     function validateWithdrawl(moneyItem) {
         if (!$.isArray(moneyItem))
             moneyItem = [moneyItem];
-        
+
         for (var i = 0; i < moneyItem.length; ++i) {
             var item = moneyItem[i];
             var idx = binarySearchMoneyItem(this.items(), item.nominal);
@@ -203,9 +198,9 @@
 
     function withdrawInternal(moneyItem) {
         var that = this;
-        
+
         if ($.isArray(moneyItem))
-            $.each(moneyItem, function (idx, val) {
+            $.each(moneyItem, function(idx, val) {
                 withdrawOne.call(that, val);
             });
         else
@@ -238,4 +233,5 @@
     }
     /* --- End Privates --- */
 
-}(window.jQuery));
+    return thisClass;
+});

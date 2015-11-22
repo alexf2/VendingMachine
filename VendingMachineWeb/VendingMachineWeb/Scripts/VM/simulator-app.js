@@ -1,15 +1,13 @@
-﻿!(function ($) {
+﻿define("simulator-app", ["jquery", "knockoutjs", "wallet", "goods-store", "purcashing-result", "wallet-plugin", "vending-machine-plugin"], function ($, ko, wallet, goodsStore, pcResult) {
     'use strict';
 
     var JS_PLUGIN_NAME = 'SimulatorApp';
     var PLUGIN_NAME = 'simulator_app';
-
-    var NameSpace = 'VmSimulator',
-        NS = $[NameSpace] || ($[NameSpace] = {});
-
+    
     function myScope() {
         return '.' + JS_PLUGIN_NAME;
     }
+
     function scopedName(name) {
         return name + myScope();
     }
@@ -20,7 +18,7 @@
      * @param {string} modelUrl Rest service URL to request the simulator model as JSON.
      * @param {string} templatesBaseUrl Base URL for HTML templates, used in the model.
     */
-    var thisClass = NS.SimulatorApp = function (modelUrl, templatesBaseUrl) {
+    var thisClass = function(modelUrl, templatesBaseUrl) {
         this.modelUrl = modelUrl;
         this.templatesBaseUrl = templatesBaseUrl;
         this.logMessages = ko.observableArray();
@@ -32,7 +30,7 @@
             bindEvents.call(this);
         },
 
-        clearLog: function () { this.logMessages([]); }
+        clearLog: function() { this.logMessages([]); }
     }; //End prototype
 
     /* --- Privates --- */
@@ -48,30 +46,30 @@
         function success(result, textStatus, jqXHR) {
 
             try {
-                that.customerWallet = new NS.Wallet("uw", "User's wallet", result.customerWallet);
+                that.customerWallet = new wallet("uw", "User's wallet", result.customerWallet);
                 //creating user's wallet
-                getUserWallet$.call(that).walletp({
+                getUserWallet$.call(that).wallet_p({
                     template: that.templatesBaseUrl + 'wallet-template.html',
                     wallet: that.customerWallet
                 });
 
-                var vmWallet = new NS.Wallet("mw", "VM's wallet", result.vendingMachine.wallet, true);
+                var vmWallet = new wallet("mw", "VM's wallet", result.vendingMachine.wallet, true);
 
                 //creating machine wallet
-                getVmWallet$.call(that).walletp({
+                getVmWallet$.call(that).wallet_p({
                     readonly: true,
                     template: that.templatesBaseUrl + 'wallet-template.html',
                     wallet: vmWallet
                 });
 
                 //creating vending machine
-                getVM$.call(that).vending_machine({
+                getVM$.call(that).vending_machine_p({
                     goodsTemplate: that.templatesBaseUrl + 'goods-template.html',
                     wallet: vmWallet,
-                    goods: new NS.GoodsStore(result.vendingMachine.goods, vmWallet),
+                    goods: new goodsStore(result.vendingMachine.goods, vmWallet),
                     id: 'vm1'
                 });
-            } catch (ex) {                
+            } catch (ex) {
                 $('<div class="err-msg"></div>').prependTo(document.body).text('Simulator initialization error: ' + ex.message);
             }
         }
@@ -91,7 +89,7 @@
         $.ajax(xhrRequest).
             always(complete).
             done(success).
-            fail(failure);        
+            fail(failure);
     }
 
     function bindEvents() {
@@ -118,8 +116,7 @@
     function writeLog(msg) {
         this.logMessages.push(msg);
     }
-   
-    
+
 
     /* --- Event handlers --- */
     function userWalletClicked(ev, nominal) {
@@ -127,58 +124,65 @@
 
         var wres = this.customerWallet.withdraw(moneyItem);
         if (wres === true) {
-            getVM$.call(this).data('vending_machine').cashIn(moneyItem);
+            getVM$.call(this).data('vending_machine_p').cashIn(moneyItem);
             writeLog.call(this, 'Deposit ' + nominal);
-        } else 
+        } else
             writeLog.call(this, 'Can not withdrow ' + wres.nominal + ': uderflow ' + wres.amountDiff);
 
         return false;
     }
+
     function purchaseTried(ev, purcashingResult) {
-        
-        if (purcashingResult.result.status === NS.PurcashingResult.prototype.SOLD_OK) {
-            
+
+        if (purcashingResult.result.status === pcResult.prototype.SOLD_OK) {
+
             writeLog.call(this, purcashingResult.merch.name + '/' + purcashingResult.merch.price + 'R was purchased');
             if (purcashingResult.result.change) {
                 this.customerWallet.deposit(purcashingResult.result.change);
                 writeLog.call(this, 'Change refunded: ' + this.customerWallet.getBalance(purcashingResult.result.change) + 'R');
             }
 
-        } else if (purcashingResult.result.status === NS.PurcashingResult.prototype.RUN_OUT)
+        } else if (purcashingResult.result.status === pcResult.prototype.RUN_OUT)
             writeLog.call(this, 'Purchasing failed: selected goods item has finished');
 
-        else if (purcashingResult.result.status === NS.PurcashingResult.prototype.NOT_ENOUGHT_MONEY)
+        else if (purcashingResult.result.status === pcResult.prototype.NOT_ENOUGHT_MONEY)
             writeLog.call(this, 'Purchasing failed: the deposit is not enough');
 
-        else if (purcashingResult.result.status === NS.PurcashingResult.prototype.NO_CHANGE)
+        else if (purcashingResult.result.status === pcResult.prototype.NO_CHANGE)
             writeLog.call(this, 'Purchasing failed: VM does not have enough change');
 
         return false;
     }
+
     function refund(ev, moneyItems) {
         this.customerWallet.deposit(moneyItems.items);
-        
+
         writeLog.call(this, 'Money refunded: ' + this.customerWallet.getBalance(moneyItems.items) + ' R');
 
         return false;
     }
+
     /* --- END Event handlers --- */
 
     /* --- DOM Traversal ---*/
     function getUserWallet$() {
         return $('.id-user-wallet');
     }
+
     function getVmWallet$() {
         return $('.id-machine-wallet');
     }
+
     function getVM$() {
         return $('.id-machine');
     }
+
     function getLog$() {
         return $('.id-msg-log');
     }
+
     /* --- END DOM Traversal ---*/
 
 /* --- End Privates --- */
-
-})(window.jQuery);
+    return thisClass;
+});

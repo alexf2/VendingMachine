@@ -2,9 +2,12 @@
 @{
     ViewBag.Title = "Vending Machine";
 }
-@section Scripts {    
-    
-    @Scripts.Render("~/bundles/vm-simulator-scripts")
+@section ViewStartupScripts {
+    <script type="text/javascript">
+        require(["simulator-app"], function(smApp) {
+            new smApp('@Url.HttpRouteUrl("SimulatorRoute", null)', '@Url.Content("~/Content/templates/")').run();
+        });
+    </script>
 }
 <div class="jumbotron">
     <p class="lead">Basic Vending Machine simulator for UseTech</p>
@@ -59,8 +62,3 @@
 
 <div>@Html.Partial("ActionLog")</div>
 
-@section JavaScript {
-    <script type="text/javascript">
-        new window.jQuery.VmSimulator.SimulatorApp('@Url.HttpRouteUrl("SimulatorRoute", null)', '@Href("~/Content/templates/")').run();
-    </script>
-}

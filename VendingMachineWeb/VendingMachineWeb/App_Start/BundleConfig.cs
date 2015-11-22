@@ -17,35 +17,37 @@ namespace UseTech.VendingMachine.Web
         {
             bundles.UseCdn = true;
 
-            Bundle bandle = new ScriptBundle("~/bundles/jquery",
+            var bundle = new ScriptBundle("~/bundles/require.js", 
+                "http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.min.js").Include("~/Scripts/require.js");
+            bundle.CdnFallbackExpression = "(typeof define === 'function') && define['amd']";
+            bundles.Add(bundle);
+
+            bundle = new ScriptBundle("~/bundles/jquery.js",
                 string.Format("http://code.jquery.com/jquery-{0}.min.js", GetScriptVer(JqueryFileName))).
                 Include("~/Scripts/jquery-{version}.js");
-            bandle.CdnFallbackExpression = "window.jQuery";
-            bundles.Add(bandle);
+            bundle.CdnFallbackExpression = "window.jQuery";
+            bundles.Add(bundle);
 
-            bandle = new ScriptBundle("~/bundles/knockoutjs",
+            bundle = new ScriptBundle("~/bundles/knockout.js",
                 string.Format("http://cdnjs.cloudflare.com/ajax/libs/knockout/{0}/knockout-min.js", GetScriptVer(KnockoutFileName))).
                 Include("~/Scripts/knockout-{version}.js");
-            bandle.CdnFallbackExpression = "window.ko";
-            bundles.Add(bandle);
+            bundle.CdnFallbackExpression = "window.ko";
+            bundles.Add(bundle);
 
-            bandle = new ScriptBundle("~/bundles/vm-simulator-scripts").
-                Include("~/Scripts/VM/wallet.js").
-                Include("~/Scripts/VM/goods-store.js").
-
-                Include("~/Scripts/VM/wallet-plugin.js").
-                Include("~/Scripts/VM/vending-machine-plugin.js").
-                Include("~/Scripts/VM/simulator-app.js");
-            
-            bundles.Add(bandle);
-                        
-            /*bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));*/
-
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap",
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap.js",
                 "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/vm-simulator-scripts.js").
+                Include("~/Scripts/VM/wallet.js").
+                Include("~/Scripts/VM/goods-store.js").
+                Include("~/Scripts/VM/purcashing-result.js").
+
+                Include("~/Scripts/VM/wallet-plugin.js").
+                Include("~/Scripts/VM/vending-machine-plugin.js").
+                Include("~/Scripts/VM/simulator-app.js"));
+
+            #region CSS bundles
             bundles.Add(new StyleBundle("~/Content/normalize-css").Include(
                       "~/Content/normalize.css"));
 
@@ -55,6 +57,13 @@ namespace UseTech.VendingMachine.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(                      
                       "~/Content/site.css"));
+            #endregion CSS bundles
+        }
+
+        static string _bust;
+        public static string Bust
+        {
+            get { return _bust ?? (_bust = "v=" + typeof (AppInstaller).Assembly.GetName().Version); }
         }
 
         static readonly Regex _exParseVer = new Regex(@"\d+\.(\d+\.)*", RegexOptions.CultureInvariant | RegexOptions.Singleline);

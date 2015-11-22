@@ -1,28 +1,81 @@
-﻿<!DOCTYPE html>
+﻿@using RequireJsNet
+<!DOCTYPE html>
 <html>
-    
+
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewBag.Title</title>
-        
+
         @Styles.Render("~/Content/normalize-css")
-        @Styles.Render("~/Content/bs-css")
+        @Styles.Render("~/Content/bs-css" )
         @Styles.Render("~/Content/css")
     </head>
-
 
     <body class="container-fluid">
         @RenderBody()
     </body>
 
+    @Scripts.Render("~/bundles/require.js")
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/knockoutjs")
-    @Scripts.Render("~/bundles/bootstrap")
+<script type="text/javascript">
+    requirejs.config({
+        "baseUrl": "@Url.Content("~/Scripts/")",
+        "urlArgs": "@BundleConfig.Bust",
+        "paths": {
+            "jquery": "@Url.Content("~/bundles/jquery")",
+            "bootstrap": "@Url.Content("~/bundles/bootstrap")",
+            "knockoutjs": "@Url.Content("~/bundles/knockout")",
 
-    @RenderSection("scripts", required: false)
+            "wallet": "VM/wallet",
+            "goods-store": "VM/goods-store",
+            "wallet-plugin": "VM/wallet-plugin",
+            "vending-machine-plugin": "VM/vending-machine-plugin",
+            "simulator-app": "VM/simulator-app",
+            "purcashing-result": "VM/purcashing-result",
 
-    @RenderSection("JavaScript", required: false)
+            "vm-simulator-scripts-bundle": "@Url.Content("~/bundles/vm-simulator-scripts")"
+        },
+
+        "bundles": {
+            "vm-simulator-scripts-bundle": ["wallet", "goods-store", "wallet-plugin", "vending-machine-plugin", "simulator-app", "purcashing-result"]
+        },
+
+        "shim": {
+            "bootstrap": { "deps": ["jquery"] },
+            "knockoutjs": { "deps": ["jquery"] }
+        }
+    });
+</script>
+
+    @*
+    @Html.RenderRequireJsSetup(new RequireRendererConfiguration
+    {
+        // the url from where require.js will be loaded
+        RequireJsUrl = Url.Content("~/bundles/require.js"),
+
+        // baseUrl to be passed to require.js, will be used when composing urls for scripts
+        BaseUrl = Url.Content("~/Scripts/"),
+
+        // a list of all the configuration files you want to load
+        ConfigurationFiles = new[] { "~/requireJs.json" },
+
+        // root folder for your js controllers, will be used for composing paths to entrypoint
+        EntryPointRoot = "~/Scripts/",
+
+        // whether we should load overrides or not, used for autoBundles, disabled on debug mode
+        LoadOverrides = !HttpContext.Current.IsDebuggingEnabled,
+
+        Logger = null,
+        ProcessConfig = config => { },
+        ProcessOptions = options => { },
+
+        // value for urlArgs to be passed to require.js, used for versioning
+        UrlArgs = "v=" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
+    });
+    *@
+
+    @* @Scripts.Render("~/bundles/bootstrap") *@
+    @RenderSection("ViewStartupScripts", required: false)
 
 </html>
