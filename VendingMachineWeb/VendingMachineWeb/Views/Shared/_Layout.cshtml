@@ -1,5 +1,4 @@
-﻿@using RequireJsNet
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
     <head>
@@ -7,9 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewBag.Title</title>
 
-        @Styles.Render("~/Content/normalize-css")
-        @Styles.Render("~/Content/bs-css" )
-        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/normalize-css", "~/Content/bs-css", "~/Content/site-css")
     </head>
 
     <body class="container-fluid">
@@ -18,64 +15,50 @@
 
     @Scripts.Render("~/bundles/require.js")
 
-<script type="text/javascript">
-    requirejs.config({
-        "baseUrl": "@Url.Content("~/Scripts/")",
-        "urlArgs": "@BundleConfig.Bust",
-        "paths": {
-            "jquery": "@Url.Content("~/bundles/jquery")",
-            "bootstrap": "@Url.Content("~/bundles/bootstrap")",
-            "knockoutjs": "@Url.Content("~/bundles/knockout")",
+    <script type="text/javascript">
+        requirejs.config({
+            "baseUrl": "@Url.Content("~/Scripts/")",
+            "urlArgs": "@BundleConfig.Bust",
+            "paths": {
+                @if (BundleTable.EnableOptimizations)
+                {
+                    @:"jquery": ["//code.jquery.com/jquery-2.1.4.min", "jquery-2.1.4.min"],
+                    @:"bootstrap": ["//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min", "bootstrap.min"],
+                    @:"knockoutjs": ["//cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min", "knockout-3.3.0"],
+                }
+                else
+                {
+                    @:"jquery": "jquery-2.1.4",
+                    @:"bootstrap": "bootstrap",
+                    @:"knockoutjs": "knockout-3.3.0",
+                }
 
-            "wallet": "VM/wallet",
-            "goods-store": "VM/goods-store",
-            "wallet-plugin": "VM/wallet-plugin",
-            "vending-machine-plugin": "VM/vending-machine-plugin",
-            "simulator-app": "VM/simulator-app",
-            "purcashing-result": "VM/purcashing-result",
+                "wallet": "VM/wallet",
+                "goods-store": "VM/goods-store",
+                "wallet-plugin": "VM/wallet-plugin",
+                "vending-machine-plugin": "VM/vending-machine-plugin",
+                "simulator-app": "VM/simulator-app",
+                "purcashing-result": "VM/purcashing-result",
 
-            "vm-simulator-scripts-bundle": "@Url.Content("~/bundles/vm-simulator-scripts")"
-        },
+                @if (BundleTable.EnableOptimizations)
+                {
+                    @:"vm-simulator-scripts-bundle": "@Url.Content("~/bundles/vm-simulator-scripts")"
+                }
+            },
 
-        "bundles": {
-            "vm-simulator-scripts-bundle": ["wallet", "goods-store", "wallet-plugin", "vending-machine-plugin", "simulator-app", "purcashing-result"]
-        },
+            @if (BundleTable.EnableOptimizations) {
+                @:"bundles": {
+                @:    "vm-simulator-scripts-bundle": ["wallet", "goods-store", "wallet-plugin", "vending-machine-plugin", "simulator-app", "purcashing-result"]
+                @:},
+            }
 
-        "shim": {
-            "bootstrap": { "deps": ["jquery"] },
-            "knockoutjs": { "deps": ["jquery"] }
-        }
-    });
-</script>
-
-    @*
-    @Html.RenderRequireJsSetup(new RequireRendererConfiguration
-    {
-        // the url from where require.js will be loaded
-        RequireJsUrl = Url.Content("~/bundles/require.js"),
-
-        // baseUrl to be passed to require.js, will be used when composing urls for scripts
-        BaseUrl = Url.Content("~/Scripts/"),
-
-        // a list of all the configuration files you want to load
-        ConfigurationFiles = new[] { "~/requireJs.json" },
-
-        // root folder for your js controllers, will be used for composing paths to entrypoint
-        EntryPointRoot = "~/Scripts/",
-
-        // whether we should load overrides or not, used for autoBundles, disabled on debug mode
-        LoadOverrides = !HttpContext.Current.IsDebuggingEnabled,
-
-        Logger = null,
-        ProcessConfig = config => { },
-        ProcessOptions = options => { },
-
-        // value for urlArgs to be passed to require.js, used for versioning
-        UrlArgs = "v=" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
-    });
-    *@
-
-    @* @Scripts.Render("~/bundles/bootstrap") *@
+            "shim": {
+                "bootstrap": { "deps": ["jquery"] },
+                "knockoutjs": { "deps": ["jquery"], "exports": "ko" }
+            }
+        });
+    </script>
+  
+    
     @RenderSection("ViewStartupScripts", required: false)
-
 </html>

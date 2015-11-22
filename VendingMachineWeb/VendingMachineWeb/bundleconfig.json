@@ -42,13 +42,6 @@
     "sourceMap": true
   },
   {
-    "outputFileName": "Scripts/text.js",
-    "inputFiles": [
-      "Scripts/text.js"
-    ],
-    "sourceMap": true
-  },
-  {
     "outputFileName": "Scripts/VM/purcashing-result.js",
     "inputFiles": [
       "Scripts/VM/purcashing-result.js"

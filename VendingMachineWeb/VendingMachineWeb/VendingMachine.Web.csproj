@@ -57,10 +57,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet, Version=2.1.52.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RequireJsNet.2.1.52.0\lib\net40\RequireJsNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -153,6 +149,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\normalize.css" />
     <Content Include="Content\Site.css">
       <DependentUpon>Site.less</DependentUpon>
     </Content>
@@ -181,7 +178,6 @@
     <Content Include="Content\Site.less" />
     <None Include="Properties\PublishProfiles\Main.pubxml" />
     <None Include="Properties\PublishProfiles\VM.pubxml" />
-    <Content Include="requireJs.json" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -191,10 +187,6 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\require.min.js">
       <DependentUpon>require.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\text.js" />
-    <Content Include="Scripts\text.min.js">
-      <DependentUpon>text.js</DependentUpon>
     </Content>
     <Content Include="Scripts\VM\goods-store.js" />
     <Content Include="Scripts\VM\goods-store.min.js">
@@ -251,9 +243,6 @@
     </Content>
     <Content Include="Scripts\require.min.js.map">
       <DependentUpon>require.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\text.min.js.map">
-      <DependentUpon>text.min.js</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>

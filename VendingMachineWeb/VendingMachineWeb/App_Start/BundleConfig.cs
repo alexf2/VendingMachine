@@ -48,14 +48,15 @@ namespace UseTech.VendingMachine.Web
                 Include("~/Scripts/VM/simulator-app.js"));
 
             #region CSS bundles
-            bundles.Add(new StyleBundle("~/Content/normalize-css").Include(
+            bundles.Add(new StyleBundle("~/Content/normalize-css",
+                "http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css").Include(
                       "~/Content/normalize.css"));
 
             bundles.Add(new StyleBundle("~/Content/bs-css",
                 "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css").Include(
                       "~/Content/bootstrap.css"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(                      
+            bundles.Add(new StyleBundle("~/Content/site-css").Include(                      
                       "~/Content/site.css"));
             #endregion CSS bundles
         }
