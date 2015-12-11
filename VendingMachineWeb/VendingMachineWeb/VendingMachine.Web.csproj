@@ -244,6 +244,9 @@
     <Content Include="Scripts\require.min.js.map">
       <DependentUpon>require.min.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\VM\purcashing-result.min.js.map">
+      <DependentUpon>purcashing-result.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

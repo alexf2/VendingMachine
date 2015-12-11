@@ -46,6 +46,6 @@
     "inputFiles": [
       "Scripts/VM/purcashing-result.js"
     ],
-    "sourceMap": false
+    "sourceMap": true
   }
 ]
