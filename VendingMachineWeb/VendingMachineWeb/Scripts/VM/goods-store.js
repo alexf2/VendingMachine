@@ -34,7 +34,7 @@ define("goods-store", ["jquery", "purcashing-result", "knockoutjs"], function ($
          * If the money amount is exact, then the change is undefined.        
          * @param {string} name The name of goods.
          * @param {moneyItem[]} moneyItems An array of money items.
-         * @returns {PurcashingResult} operation status and change, if any. Change is undefined when the summ of moneyItems is exact or in case of an error.                  
+         * @returns {module:purcashing-result.PurcashingResult} operation status and change, if any. Change is undefined when the summ of moneyItems is exact or in case of an error.                  
          * @throws {Error} When the good item hasn't found by name 
          */
         purchase: function(name, moneyItems) {
