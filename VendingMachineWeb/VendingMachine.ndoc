@@ -7,11 +7,12 @@
     </assemblies>
     <documenters>
         <documenter name="MSDN">
-            <property name="OutputDirectory" value=".\server-doc\" />
+            <property name="OutputDirectory" value=".\VendingMachineWeb\Content\server-doc\" />
             <property name="HtmlHelpName" value="Documentation" />
             <property name="Title" value="Vending Machine Server Doc" />
             <property name="SdkDocVersion" value="SDK_v3_5" />
             <property name="SdkDocVersionString" value="VS.90" />
+            <property name="CleanIntermediates" value="True" />
         </documenter>
     </documenters>
 </project>
