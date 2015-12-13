@@ -300,6 +300,7 @@ define("vending-machine-plugin", ["jquery", "wallet", "goods-store", "purcashing
     * @prop {string} goodsTemplate Html template URL. This template is used for rendering the goods list.
     * @prop {string | number} id Machine unique id.
     * @prop {string} name Machine display name.
+    * @prop {module:goods-store.GoodsStore} goods The store with merchendises.
    */
     var defTmp = $.fn[PLUGIN_NAME].defaults = {
         wallet: new wallet("m", "MachineWallet", []),
