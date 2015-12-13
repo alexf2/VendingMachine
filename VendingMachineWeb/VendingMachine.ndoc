@@ -1,0 +1,17 @@
+<project SchemaVersion="1.3">
+    <assemblies>
+        <assembly location=".\VendingMachine.Runtime\bin\Debug\UseTech.VendingMachine.Runtime.dll" documentation="" />
+        <assembly location=".\VendingMachineWeb\bin\UseTech.VendingMachine.Web.dll" documentation="" />
+        <assembly location=".\VendingMachineContract\bin\Debug\UseTech.VendingMachine.Contract.dll" documentation="" />
+        <assembly location=".\Helpers\bin\Debug\UseTech.Helpers.dll" documentation="" />
+    </assemblies>
+    <documenters>
+        <documenter name="MSDN">
+            <property name="OutputDirectory" value=".\server-doc\" />
+            <property name="HtmlHelpName" value="Documentation" />
+            <property name="Title" value="Vending Machine Server Doc" />
+            <property name="SdkDocVersion" value="SDK_v3_5" />
+            <property name="SdkDocVersionString" value="VS.90" />
+        </documenter>
+    </documenters>
+</project>
