@@ -4,15 +4,18 @@
 }
 @section ViewStartupScripts {
     <script type="text/javascript">
-        require(["simulator-app"], function(smApp) {
+        require(["simulator-app"], function (smApp) {
             new smApp('@Url.HttpRouteUrl("SimulatorRoute", null)', '@Url.Content("~/Content/templates/")').run();
         });
     </script>
 }
 <div class="jumbotron">
     <p class="lead">Basic Vending Machine simulator for UseTech</p>
-    <p><a href="http://usetech.ru/" class="btn btn-primary">UseTech &raquo;</a>&nbsp;&nbsp;<a href="https://github.com/alexf2/VendingMachine/" class="btn btn-primary" title="Explore the source code in GitHub">Source Code &raquo;</a>
-    </p>    
+    <p>
+        <a href="http://usetech.ru/" class="btn btn-primary">UseTech &raquo;</a>&nbsp;&nbsp;
+        <a href="https://github.com/alexf2/VendingMachine/" class="btn btn-primary" title="Explore the source code in GitHub">Source Code &raquo;</a>&nbsp;&nbsp;
+        <a href="@Url.Content("~/Content/js-doc/index.html")" class="btn btn-primary" title="Read client API documentation">Client API &raquo;</a>
+    </p>
 </div>
 
 <div class="row">
@@ -21,11 +24,11 @@
         <div class="container-fluid wallet id-user-wallet"></div>
     </div>
 
-    <div class="col-md-6 reset-padding" >
+    <div class="col-md-6 reset-padding">
         <div class="container-fluid vmachine id-machine">
             <div class="panel panel-primary">
 
-                <div class="panel-heading clearfix"><h3 class="panel-title id-machine-title pull-left" >Vending Machine</h3><button type="button" class="btn btn-xs btn-danger pull-right" onclick="location.reload();" title="Click to reset model state">Reset</button></div>
+                <div class="panel-heading clearfix"><h3 class="panel-title id-machine-title pull-left">Vending Machine</h3><button type="button" class="btn btn-xs btn-danger pull-right" onclick="location.reload();" title="Click to reset model state">Reset</button></div>
 
                 <div class="panel-body">
 
@@ -36,7 +39,7 @@
                                 <div class="panel-body" data-bind="text: status">Ready</div>
                             </div>
                         </div>
-                        <div class="col-xs-3 deposit-box" >
+                        <div class="col-xs-3 deposit-box">
                             <div class="panel panel-default">
                                 <div class="panel-heading nested-heading"><h5 class="panel-title">Deposit</h5></div>
                                 <div class="panel-body text-center money-indicator"><b data-bind='text: operationBalance()'>0</b><button type="button" class="btn btn-success refund-btn" data-bind="disable: operationBalance() == 0, click: refundClick">Refund</button></div>
@@ -57,7 +60,7 @@
     <div class="col-md-3">
         <div class="container-fluid wallet id-machine-wallet"></div>
     </div>
-        
+
 </div>
 
 <div>@Html.Partial("ActionLog")</div>
