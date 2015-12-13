@@ -1,0 +1,17 @@
+{
+  "templates": {
+    "default": {
+      "outputSourceFiles": "false"
+    }
+  },
+
+  "source": {
+    "include": [ "VendingMachineWeb/Scripts/VM/" ],
+    "exclude": [ "simulator-app.js" ],
+    "excludePattern": "\\.js\\.map|\\.min\\.js"
+  },
+  "opts": {
+    "destination": "VendingMachineWeb/Content/js-doc/",
+    "recurse": false
+  }
+}

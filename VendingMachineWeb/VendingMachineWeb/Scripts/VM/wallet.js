@@ -1,20 +1,43 @@
-﻿define("wallet", ["jquery", "knockoutjs"], function ($, ko) {
+﻿/**
+ * wallet module.
+ * @module wallet
+ */
+define("wallet", ["jquery", "knockoutjs"], function ($, ko) {
     "use strict";    
 
     /**
      * Creates a wallet instance.
-     * @constructor
+     * @memberof module:wallet
+     * @constructs Wallet
+     * @classdesc Represents a wallet.
      * @param {string | number} id Wallet unique id.
-     * @param {string} name Wallet descriptive name.
-     * @param {moneyItem[]} moneyItems An array of {nominal, amount}.
+     * @param {string} name Wallet's descriptive name.
+     * @param {MoneyItem[]} moneyItems Wallet's content.
+     * @param {boolean} readonly Indicates whether the wallet can interact to UI. If false or undefined, then the wallet can interact to UI.
     */
-    var thisClass = function(id, name, moneyItems, readonly) {
+    var thisClass = function (id, name, moneyItems, readonly) {
+        /**
+         * Wallet unique id.
+         * @type {string | number}
+         */
         this.id = id;
+        /**
+         * Wallet's descriptive name.
+         * @type {string}
+         */
         this.name = name;
+        /**
+         * Indicates whether the wallet can interact to UI. If false or undefined, then the wallet can interact to UI.
+         * @type {boolean} 
+         */
         this.readonly = readonly || false;
 
         var items = moneyItems || [];
 
+        /**
+         * Wallet's content. Observable array of money items. The property 'amount' of each item is observable too. 
+         * @type {MoneyItem[]} 
+         */
         this.items = ko.utils.arrayMap(items, function(it) {
             if (it.nominal !== it.nominal >> 0)
                 throw new Error('Wallet does not support fractional money units');
@@ -32,11 +55,11 @@
         this.items = ko.observableArray(this.items);
     };
 
-    thisClass.prototype = {
+    thisClass.prototype = /** @lends Wallet.prototype */ {
 
         /**
          * Adds money, listed in pairs {nominal, amount}.
-         * @param {moneyItem[] | moneyItem} moneyItems Money to add to the wallet.
+         * @param {MoneyItem[] | moneyItem} moneyItems Money to add to the wallet.
          * @returns {number} added total amount.
         */
         deposit: function(moneyItem) {
@@ -55,7 +78,7 @@
 
         /**
          * Withdraws money, listed in pairs {nominal, amount}.
-         * @param {moneyItem[] | moneyItem} moneyItems Money to withdraw off the wallet.
+         * @param {MoneyItem[] | MoneyItem} moneyItems Money to withdraw off the wallet.
          * @returns {number | UnderflowInfo} withdrawn total amount or UnderflowInfo , if current balance is not enough or availbale units do not allow to gather requested amount.
         */
         withdraw: function(moneyItem) {
@@ -74,7 +97,7 @@
         /**
          * Withdraws a specified amount of money if current balance is enough and money units allow to gather required amount.
          * @param {number} amount The number to withdraw. The number should be integer: fractions are not supported.
-         * @returns {moneyItem[] | number} withdrawn money array or a negative number, representing underflow.
+         * @returns {MoneyItem[] | number} withdrawn money array or a negative number, representing underflow.
          */
         adjustedWithdraw: function(amount) {
             if (!amount)
@@ -105,7 +128,7 @@
 
         /**
          * Withdraws all the money.
-         * @returns {moneyItem[]} withdrawn money array.
+         * @returns {MoneyItem[]} withdrawn money array.
          */
         withdrawAll: function() {
             var tmp = this.items();
@@ -115,7 +138,7 @@
 
         /**
          * Calculates summ of products {nominal, amount}.
-         * @param {moneyItem[] | moneyItem} items Money to summarize.
+         * @param {MoneyItem[] | MoneyItem} items Money to summarize.
          * @returns {number} summ of products unit * amount.
         */
         getBalance: function(items) {
@@ -134,8 +157,8 @@
         },
 
         /**
-         * Returns wallet content.
-         * @returns {moneyItem[]}.
+         * Returns complete wallet's content.
+         * @returns {MoneyItem[]}.
          */
         getDetails: function() {
             return this.items();
@@ -143,12 +166,17 @@
 
         /**
          * Returns true if the wallet is empty.
-         * @returns {bool}.
+         * @returns {boolean}.
          */
         isEmpty: function() {
             return this.items().length === 0 || this.getBalance() === 0;
         },
 
+        /**
+         * Finds money item by nominal. If no item found, then returns null.
+         * @param {number} nominal Money to summarize.
+         * @returns {MoneyItem}.
+         */
         getMoneyItem: function(nominal) {
             var idx = binarySearchMoneyItem(this.items(), nominal);
             return idx >= 0 ? this.items()[idx] : null;

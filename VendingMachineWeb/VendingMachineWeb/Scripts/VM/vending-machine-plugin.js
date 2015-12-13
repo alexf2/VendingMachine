@@ -1,5 +1,27 @@
-﻿define("vending-machine-plugin", ["jquery", "wallet", "goods-store", "purcashing-result", "knockoutjs"], function ($, wallet, goodsStore, purcashingResult, ko) {
+﻿/**
+ * vending-machine-plugin module.
+ * @module vending-machine-plugin
+ */
+define("vending-machine-plugin", ["jquery", "wallet", "goods-store", "purcashing-result", "knockoutjs"], function ($, wallet, goodsStore, purcashingResult, ko) {
     'use strict';
+
+    /**
+     * purchase-result event. Fired when a user clicks a goods item.
+     *
+     * @memberof module:vending-machine-plugin.VendingMachineP
+     * @event purchase-result
+     * @type {PurchaseResultArg}      
+   */
+
+    /**
+     * money-refund event. Fired when a user clicks Refund button.
+     *
+     * @memberof module:vending-machine-plugin.VendingMachineP
+     * @event money-refund
+     * @type {MoneyRefundArg}      
+   */
+
+    
 
     var JS_PLUGIN_NAME = 'VendingMachineP';
     var PLUGIN_NAME = 'vending_machine_p';
@@ -20,14 +42,32 @@
     }
 
     /**
-     * Creates the plugin, representing a Vending Machine.
-     * @constructor
-     * @param {DomNode} the DOM element to attach plugin to.
-     * @param {object} options object.
+     * Creates the plugin, representing a Vending Machine. Should not be used directly, instead, create it via jQuery warapper: $('css-selector').vending_machine_p(elem, opt).
+     * @memberof module:vending-machine-plugin
+     * @constructs VendingMachineP
+     * @classdesc Represents a Vending Machine plugin, which is responsible for UI representation and interaction.
+     * @param {DomNode} element The DOM element to attach plugin to.
+     * @param {module:vending-machine-plugin.VendingMachineP.VmOptions} options Plugin settings.
+     * @fires purchase-result
+     * @fires money-refund
     */
-    var VendingMachineP = function(element, options) {
+    var VendingMachineP = function (element, options) {
+        /**
+         * jQuery DOM node wrapper, which wraps an HTML node, where the VM is rendered.
+         * @type {jQueryWrapper}
+         */
         this.$element = $(element);
+
+        /**
+         * Plugin configuration options.
+         * @type {module:vending-machine-plugin.VendingMachineP.VmOptions}
+         */
         this.options = options;
+
+        /**
+         * VM model.
+         * @type {module:vending-machine-plugin.VendingMachineP.VmModel}
+         */
         this.model = createModel.call(this, options);
     };
 
@@ -35,39 +75,75 @@
     VendingMachineP.prototype = {
 
         /* --- Public --- */
+
+        /**
+         * Initializes VendingMachineP instance.
+         * @param {DomNode} element The DOM element to attach plugin to.
+         * @param {module:vending-machine-plugin.VendingMachineP.VmOptions} options Plugin settings.
+        */
         constructor: VendingMachineP,
 
+        /**
+         * Returns jQuery plugin name 'wallet_p'.
+         * @type {string}
+         */
         pluginName: PLUGIN_NAME,
 
+        /**
+         * Gets hosting DOM node attribute id value.         
+         * @returns {string}
+        */
         getId: function() { return this.$element.attr('id'); },
 
+        /**
+         * Deposites specified money into operational wallet of this VM.
+         * @param {MoneyItem} moneyItem Specifies one money item of a certain nominal, which is being added to the operational VM wallet. User needs to deposit several items to gain a certain money amount, which is enough to buy a goods item.
+         */
         cashIn: function(moneyItem) {
             this.model.operationWallet.deposit(moneyItem);
             this.model.status(STAT_DEPOSIT);
         },
 
+        /**
+         * Detaches all event handlers, additional CSS classes and data off the hosting DOM node.
+         */
         destroy: function() { teardown.call(this); }
     };
 
     /* --- END Prototype --- */
 
     /* --- Private --- */
+
+    /**
+    * Represents vending machine model.
+    * @memberOf module:vending-machine-plugin.VendingMachineP
+    * @typedef {object} VmModel
+    * @prop {module:wallet.Wallet} wallet The internal wallet of vending machine.
+    * @prop {GoodItem[]} goods The goods, which vending machine sells.
+    * @prop {module:wallet.Wallet} operationWallet Operational wallet. Used to keep current user's deposit until he will buy a goods item or will request refunding.
+    * @prop {number} operationBalance Computed observable, which represents user's deposit balance in the operational wallet.
+    * @prop {string} status Represents machine state.
+    * @prop {itemClick}
+    * @prop {callback} itemClick Event handler for left mouse button click on a goods item. Sells the goods item, specified in merchandise.
+    * @prop {callback} refundClick Event handler for 'Refund' button. Refunds to user all the content of operational wallet.
+    */
+
     function createModel(opt) {
         var that = this,
             opWallet = new wallet("opw", "OperationWallet", []);
-
-        return {
+        
+        return  {
             wallet: opt.wallet,
             goods: opt.goods,
 
             operationWallet: opWallet,
             operationBalance: ko.pureComputed(function() { return opWallet.getBalance(); }), //is readonly property, so, use 'pure'
             status: ko.observable(STAT_READY),
-
+            
             itemClick: function(merchandise) {
                 purchaseItem.call(that, merchandise);
             },
-
+            
             refundClick: function() { refundCash.call(that); }
         };
     }
@@ -111,7 +187,7 @@
     }
 
     function buildTemplateUrl() {
-        if (!this.options.goodsTemplate || typeof this.options.goodsTemplate != 'string' || this.options.goodsTemplate.length == 0)
+        if (!this.options.goodsTemplate || typeof this.options.goodsTemplate != 'string' || this.options.goodsTemplate.length === 0)
             throw new Error('Plugin ' + PLUGIN_NAME + ' can not recognize template, specified in options');
 
         return this.options.goodsTemplate;
@@ -120,11 +196,19 @@
     function showLoader(show) {
 
         if (show) {
-            if (this.$element.has('.list-ajax-loader').length == 0)
+            if (this.$element.has('.list-ajax-loader').length === 0)
                 $('<div class="list-ajax-loader" />').prependTo(this.$element);
         } else
             this.$element.find('.list-ajax-loader').remove();
     }
+
+    /**
+    * Represents purchasing result event argument.    
+    * @global
+    * @typedef {object} PurchaseResultArg
+    * @prop {module:purcashing-result.PurcashingResult} result Refunded money items array.    
+    * @prop {GoodItem} merch Purchased goods item
+   */
 
     function purchaseItem(merchendise) {
 
@@ -142,6 +226,13 @@
 
         this.$element.trigger('purchase-result', { result: res, merch: merchendise });
     }
+
+    /**
+    * Represents refund event argument.    
+    * @global
+    * @typedef {object} MoneyRefundArg
+    * @prop {MoneyItem[]} items Refunded money items array.    
+   */
 
     function refundCash() {
         this.$element.trigger('money-refund', { items: this.model.operationWallet.withdrawAll() });
@@ -201,6 +292,15 @@
 
     $.fn[PLUGIN_NAME].Constructor = VendingMachineP;
 
+    /**
+    * Represents plugin settings.
+    * @memberOf module:vending-machine-plugin.VendingMachineP
+    * @typedef {object} VmOptions
+    * @prop {module:wallet.Wallet} wallet The internal wallet of vending machine.
+    * @prop {string} goodsTemplate Html template URL. This template is used for rendering the goods list.
+    * @prop {string | number} id Machine unique id.
+    * @prop {string} name Machine display name.
+   */
     var defTmp = $.fn[PLUGIN_NAME].defaults = {
         wallet: new wallet("m", "MachineWallet", []),
         goodsTemplate: 'goods-template.html',

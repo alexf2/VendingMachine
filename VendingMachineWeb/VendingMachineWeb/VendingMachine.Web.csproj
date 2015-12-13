@@ -196,6 +196,7 @@
     <Content Include="Scripts\VM\purcashing-result.min.js">
       <DependentUpon>purcashing-result.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\VM\doc-defs.js" />
     <Content Include="Scripts\VM\simulator-app.js" />
     <Content Include="Scripts\VM\simulator-app.min.js">
       <DependentUpon>simulator-app.js</DependentUpon>

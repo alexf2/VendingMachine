@@ -1,8 +1,20 @@
-﻿define("wallet-plugin", ["jquery", "wallet", "knockoutjs"], function ($, wallet, ko) {
+﻿/**
+ * wallet-plugin module.
+ * @module wallet-plugin
+ */
+define("wallet-plugin", ["jquery", "wallet", "knockoutjs"], function ($, wallet, ko) {
     'use strict';
 
+    /**
+     * money-item-clicked event. Fired when a user clicks any wallet item by mouse left button. Passes clicked money item nominal as the event argument.
+     *
+     * @memberof module:wallet-plugin.WalletP
+     * @event money-item-clicked
+     * @type {number}      
+   */
+
     var JS_PLUGIN_NAME = 'WalletP';
-    var PLUGIN_NAME = 'wallet_p';    
+    var PLUGIN_NAME = 'wallet_p';
 
     function myScope() {
         return '.' + JS_PLUGIN_NAME;
@@ -13,33 +25,73 @@
     }
 
     /**
-     * Creates the plugin, representing a Wallet.
-     * @constructor
-     * @param {DomNode} the DOM element to attach plugin to.
-     * @param {object} options object.
+     * Creates the plugin, representing a Wallet. Should not be used directly, instead, create it via jQuery warapper: $('css-selector').wallet_p(elem, opt).
+     * @memberof module:wallet-plugin
+     * @constructs WalletP
+     * @classdesc Represents a wallet plugin, which is responsible for UI representation and interaction.
+     * @param {DomNode} element The DOM element to attach plugin to.
+     * @param {WalletOptions} options Plugin settings.
+     * @fires money-item-clicked
     */
-    var WalletP = function(element, options) {
+    var WalletP = function (element, options) {
+        /**
+         * jQuery DOM node wrapper, which wraps an HTML node, where the wallet is rendered.
+         * @type {jQueryWrapper}
+         */
         this.$element = $(element);
+        /**
+         * Plugin configuration options.
+         * @type {WalletOptions}
+         */
         this.options = options;
+        /**
+         * Wallet model.
+         * @type {module:wallet-plugin.WalletP.WalletModel}
+         */
         this.model = createModel.call(this, options);
     };
 
     /* --- Prototype --- */
-    WalletP.prototype = {
+    WalletP.prototype = /** @lends WalletP.prototype */ {
 
         /* --- Public --- */
+
+        /**
+         * Initializes WalletP instance.
+         * @param {DomNode} the DOM element to attach plugin to.
+         * @param {object} options object.
+        */
         constructor: WalletP,
 
+        /**
+         * Returns jQuery plugin name 'wallet_p'.
+         * @type {string}
+         */
         pluginName: PLUGIN_NAME,
 
+        /**
+         * Gets hosting DOM node attribute id value.         
+         * @returns {string}
+        */
         getId: function() { return this.$element.attr('id'); },
 
+        /**
+         * Detaches all event handlers, additional CSS classes and data off the hosting DOM node.
+         */
         destroy: function() { teardown.call(this); }
     };
 
     /* --- END Prototype --- */
 
     /* --- Private --- */
+
+    /**
+     * Represents wallet model.
+     * @memberOf module:wallet-plugin.WalletP
+     * @typedef {object} WalletModel
+     * @prop {module:wallet.Wallet} wallet A Wallet, which this UI plugin will represent.
+    */
+
     function createModel(opt) {
         return {
             wallet: opt.wallet
@@ -151,6 +203,13 @@
 
     $.fn[PLUGIN_NAME].Constructor = WalletP;
 
+    /**
+     * Represents plugin settings.     
+     * @global
+     * @typedef {object} WalletOptions
+     * @prop {module:wallet.Wallet} wallet A Wallet, which this UI plugin will represent.
+     * @prop {string} template Html template URL. This template is used for rendering wallet's money items.
+    */
     $.fn[PLUGIN_NAME].defaults = {
         wallet: new wallet("def-1", "default", []),
         template: 'wallet-template.html'

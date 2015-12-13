@@ -11,29 +11,37 @@ define("goods-store", ["jquery", "purcashing-result", "knockoutjs"], function ($
      *  @memberof module:goods-store     
      *  @constructs GoodsStore          
      *  @classdesc Represents a storage of goods, keeping items count and price for each item.          
-     *  @param {goodItem} goodItems The items in store, which are available for selling.
-     *  @param {Wallet} wallet Wallet for recieving money and giving change.
+     *  @param {GoodItem[]} goodItems The items in store, which are available for selling.
+     *  @param {module:wallet.Wallet} wallet Wallet for recieving money and giving change.
      */
     var thisClass = function(goodItems, wallet) {
 
         var items = goodItems || [];
 
+        /**
+         * Products array with observable countInPieces.
+         * @type {GoodItem[]}
+         */
         this.items = ko.utils.arrayMap(items, function(it) {
-            var res = $.extend({}, it);
+            var res = $.extend({}, it); //cloning
             res.countInPieces = ko.observable(res.countInPieces);
             return res;
         });
 
+        /**
+         * Machine wallet.
+         * @type {module:wallet.Wallet}
+         */
         this.wallet = wallet;
     };
         
-    thisClass.prototype = /** @lends module:goods-store.GoodsStore.prototype */ {
+    thisClass.prototype = /** @lends GoodsStore.prototype */ {
 
         /**         
          * Sells a goods item by name accepting an array of money units. If money amount is enough, diminishes goods item count and returns change. 
          * If the money amount is exact, then the change is undefined.        
          * @param {string} name The name of goods.
-         * @param {moneyItem[]} moneyItems An array of money items.
+         * @param {MoneyItem[]} moneyItems An array of money items.
          * @returns {module:purcashing-result.PurcashingResult} operation status and change, if any. Change is undefined when the summ of moneyItems is exact or in case of an error.                  
          * @throws {Error} When the good item hasn't found by name 
          */
