@@ -1,4 +1,4 @@
-﻿@border_radius: 20px;
+﻿@coin_border_radius: 20px;
 @coin_border_color: #888888;
 
 .round-corners(@radius) {
@@ -16,6 +16,17 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.btn-margin {
+    & > .btn {
+        margin-bottom: 2px;
+    }
+}
+
+.jumbotron {
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -54,7 +65,7 @@ input, select, textarea {
     height: 40px;
     background: #FFD700;
 
-    .round-corners(@border_radius);    
+    .round-corners(@coin_border_radius);    
 
     border: 3px solid #DAA520;
     display: table;

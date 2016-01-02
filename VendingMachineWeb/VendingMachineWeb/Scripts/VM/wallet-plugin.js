@@ -157,6 +157,8 @@ define("wallet-plugin", ["jquery", "wallet", "knockoutjs"], function ($, wallet,
         var nominal = parseFloat($(ev.target).closest('a.list-group-item').data('nominal'));
         if (this.model.wallet.readonly == false)
             this.$element.trigger('money-item-clicked', nominal);
+
+        return false;
     }
 
     /* --- END Event handlers --- */
