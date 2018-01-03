@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: PurcashingResult</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: PurcashingResult</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-purcashing-result.html">purcashing-result</a>.</span>PurcashingResult</h2>
+        
+            <div class="class-description">Represents a result of a purchase.</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="PurcashingResult"><span class="type-signature"></span>new PurcashingResult<span class="signature">(status, change)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Initializes new instance of purcashing result.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>status</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Indicates the purchase result, whether it is sucsesfull or not.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>change</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;moneyItem></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">When the purchase is secsesfull, returns change. If change is not needed, then undefined.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="purcashing-result.js.html">purcashing-result.js</a>, <a href="purcashing-result.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".prototype"><span class="type-signature">(static, constant) </span>prototype<span class="type-signature"> :number</span></h4>
+
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>RUN_OUT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Run out of items.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>NOT_ENOUGHT_MONEY</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The deposit is not enough to buy the goods item.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>NO_CHANGE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">There is a lack of apropriate coins for change.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>SOLD_OK</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The purchase is sucsesfully completed.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="purcashing-result.js.html">purcashing-result.js</a>, <a href="purcashing-result.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="NO_CHANGE"><span class="type-signature"></span>NO_CHANGE<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    There is a lack of apropriate coins for change.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>-2</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="purcashing-result.js.html">purcashing-result.js</a>, <a href="purcashing-result.js.html#line37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="NOT_ENOUGHT_MONEY"><span class="type-signature"></span>NOT_ENOUGHT_MONEY<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    The deposit is not enough to buy the goods item.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>-1</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="purcashing-result.js.html">purcashing-result.js</a>, <a href="purcashing-result.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="RUN_OUT"><span class="type-signature"></span>RUN_OUT<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    Run out of items.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="purcashing-result.js.html">purcashing-result.js</a>, <a href="purcashing-result.js.html#line29">line 29</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="SOLD_OK"><span class="type-signature"></span>SOLD_OK<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    The purchase is sucsesfully completed.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>1</li>
+        </ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="purcashing-result.js.html">purcashing-result.js</a>, <a href="purcashing-result.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-goods-store.html">goods-store</a></li><li><a href="module-purcashing-result.html">purcashing-result</a></li><li><a href="module-vending-machine-plugin.html">vending-machine-plugin</a></li><li><a href="module-wallet.html">wallet</a></li><li><a href="module-wallet-plugin.html">wallet-plugin</a></li></ul><h3>Classes</h3><ul><li><a href="module-goods-store.GoodsStore.html">GoodsStore</a></li><li><a href="module-purcashing-result.PurcashingResult.html">PurcashingResult</a></li><li><a href="module-vending-machine-plugin.VendingMachineP.html">VendingMachineP</a></li><li><a href="module-wallet.Wallet.html">Wallet</a></li><li><a href="module-wallet-plugin.WalletP.html">WalletP</a></li></ul><h3>Events</h3><ul><li><a href="module-vending-machine-plugin.VendingMachineP.html#.event:money-refund">money-refund</a></li><li><a href="module-vending-machine-plugin.VendingMachineP.html#.event:purchase-result">purchase-result</a></li><li><a href="module-wallet-plugin.WalletP.html#.event:money-item-clicked">money-item-clicked</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jan 03 2018 04:45:50 GMT+0300 (Russia TZ 2 Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
